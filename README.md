@@ -1,4 +1,4 @@
-# Nmap Scanner
+# Multi-Use Nmap Scanner
 
 This is a Python script that uses the `nmap` library to scan networks and hosts for open ports, vulnerabilities, and perform reconnaissance.
 
