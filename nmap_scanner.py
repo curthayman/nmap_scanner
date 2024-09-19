@@ -3,6 +3,10 @@ import nmap
 import os
 
 def network_scan(ip):
+    """
+        Performs a network scan using nmap.
+        This scan checks if hosts are up or down.
+    """
     nm = nmap.PortScanner()
     try:
         nm.scan(hosts=ip, arguments='-sP')
@@ -18,6 +22,10 @@ def network_scan(ip):
         print(f"Error: {e}")
 
 def port_scan(ip):
+    """
+        Performs a port scan using nmap.
+        This scan checks if ports are open on the specified host.
+    """
     nm = nmap.PortScanner()
     try:
         nm.scan(hosts=ip, arguments='-sT')
@@ -38,6 +46,10 @@ def port_scan(ip):
         print(f"Error: {e}")
 
 def full_scan(ip):
+    """
+        Performs a full scan using nmap.
+        This scan checks all ports on the specified host.
+    """
     nm = nmap.PortScanner()
     try:
         nm.scan(hosts=ip, arguments='-p-')
@@ -58,6 +70,11 @@ def full_scan(ip):
         print(f"Error: {e}")
 
 def udp_scan(ip):
+    """
+        Performs a UDP scan using nmap.
+        This scan checks if UDP ports are open on the specified host.
+        Note: This scan requires root privileges.
+    """
     if os.geteuid() != 0:
         print("This scan requires root privileges")
         return
@@ -81,6 +98,10 @@ def udp_scan(ip):
         print(f"Error: {e}")
 
 def vulns_scan(ip):
+    """
+        Performs a vulnerability scan using nmap.
+        This scan checks for known vulnerabilities on the specified host.
+    """
     nm = nmap.PortScanner()
     try:
         nm.scan(hosts=ip, arguments='--script=vuln')
@@ -109,6 +130,10 @@ def vulns_scan(ip):
         return False
 
 def recon_scan(ip):
+    """
+        Performs a reconnaissance scan using nmap.
+        This scan runs common reconnaissance commands.
+    """
     print("Here are some recon commands you can use:")
     print("1. nmap -sP <ip> (Ping scan)")
     print("2. nmap -sT <ip> (TCP scan)")
@@ -120,6 +145,10 @@ def recon_scan(ip):
         udp_scan(ip)
 
 def all_scan(ip):
+    """
+        Performs all scans using nmap.
+        This scan runs all scans in one go.
+    """
     network_scan(ip)
     port_scan(ip)
     full_scan(ip)
@@ -128,6 +157,9 @@ def all_scan(ip):
     recon_scan(ip)
 
 def scan_list(ip_list):
+    """
+        Performs scans on a list of IP addresses.
+    """
     for ip in ip_list:
         print(f"Scanning {ip}...")
         network_scan(ip)
@@ -138,14 +170,14 @@ def scan_list(ip_list):
         recon_scan(ip)
 
 def main():
-    print("Nmap Scanner")
-    print("1. Network Scan")
-    print("2. Port Scan")
-    print("3. Full Scan")
-    print("4. UDP Scan")
-    print("5. Vulns Scan")
-    print("6. Recon Scan")
-    print("7. All Scan")
+    print("Multi-Use Nmap Scanner")
+    print("1. Network Scan - This scan checks if hosts are up or down.")
+    print("2. Port Scan - This scan checks if ports are open on the specified host.")
+    print("3. Full Scan - This scan checks all ports on the specified host.")
+    print("4. UDP Scan - This scan checks if UDP ports are open on the specified host.")
+    print("5. Vulns Scan - This scan checks for known vulnerabilities on the specified host.")
+    print("6. Recon Scan - This scan runs common reconnaissance commands.")
+    print("7. All Scan - This one will take some time, Everything everywhere all at once")
     print("8. Scan List")
     choice = input("Choose a scan type: ")
     if choice == '1':
