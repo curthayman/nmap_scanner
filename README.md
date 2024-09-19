@@ -6,7 +6,7 @@ Warning: this script may cause excessive awesomeness, spontaneous high-fiving, a
 
 - Requirements (a.k.a. The Usual Suspects)
 - Usage (a.k.a. The Mission Briefing)
-- Features (a.k.a. The Fun Stuff)
+- Features
 - Note (a.k.a. The Fine Print)
 
 ## Requirements (a.k.a. The Usual Suspects)
@@ -40,7 +40,7 @@ Warning: this script may cause excessive awesomeness, spontaneous high-fiving, a
 - Scan List
   Scans a list of IP addresses. For the truly adventurous.
 
-## Note
+## Note (a.k.a. The Fine Print)
 
 - The UDP scan requires root privileges and will prompt for confirmation before proceeding. Don't worry, we won't make you sign a waiver.
 - The script uses the nmap library to perform scans. Ensure that the library is installed and the script has the necessary permissions to run nmap scans. Or else.
