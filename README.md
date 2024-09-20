@@ -44,3 +44,7 @@ Warning: this script may cause excessive awesomeness, spontaneous high-fiving, a
 
 - The UDP scan requires root privileges and will prompt for confirmation before proceeding. Don't worry, we won't make you sign a waiver.
 - The script uses the nmap library to perform scans. Ensure that the library is installed and the script has the necessary permissions to run nmap scans. Or else.
+
+- ## Also Note
+- This README.md file was modified by A.I, because why not!
+
