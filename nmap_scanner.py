@@ -28,31 +28,7 @@ def port_scan(ip):
     """
     nm = nmap.PortScanner()
     try:
-        nm.scan(hosts=ip, arguments='-sT')
-        if len(nm.all_hosts()) == 0:
-            print(f"No open ports found on host {ip}. This could be due to:")
-            print("1. The host is down or unreachable.")
-            print("2. The host is not responding to TCP requests.")
-            print("3. The IP address is incorrect.")
-        else:
-            for host in nm.all_hosts():
-                print(f"Host: {host} has the following open ports:")
-                for proto in nm[host].all_protocols():
-                    lport = nm[host][proto].keys()
-                    sorted(lport)
-                    for port in lport:
-                        print(f"Port: {port} is open")
-    except nmap.PortScannerError as e:
-        print(f"Error: {e}")
-
-def full_scan(ip):
-    """
-        Performs a full scan using nmap.
-        This scan checks all ports on the specified host.
-    """
-    nm = nmap.PortScanner()
-    try:
-        nm.scan(hosts=ip, arguments='-p-')
+        nm.scan(hosts=ip, arguments='-sT -Pn')
         if len(nm.all_hosts()) == 0:
             print(f"No open ports found on host {ip}. This could be due to:")
             print("1. The host is down or unreachable.")
@@ -80,7 +56,7 @@ def udp_scan(ip):
         return
     nm = nmap.PortScanner()
     try:
-        nm.scan(hosts=ip, arguments='-sU')
+        nm.scan(hosts=ip, arguments='-sU -Pn')
         if len(nm.all_hosts()) == 0:
             print(f"No open UDP ports found on host {ip}. This could be due to:")
             print("1. The host is down or unreachable.")
@@ -104,7 +80,7 @@ def vulns_scan(ip):
     """
     nm = nmap.PortScanner()
     try:
-        nm.scan(hosts=ip, arguments='--script=vuln')
+        nm.scan(hosts=ip, arguments='--script=vuln -Pn')
         if len(nm.all_hosts()) == 0:
             print(f"No vulnerabilities found on host {ip}. This could be due to:")
             print("1. The host is down or unreachable.")
@@ -128,7 +104,32 @@ def vulns_scan(ip):
     except nmap.PortScannerError as e:
         print(f"Error: {e}")
         return False
-
+def ssl_tls_scan(ip):
+    """
+        Performs an SSL/TLS scan using nmap.
+        This scan checks for SSL/TLS encryption on open ports.
+    """
+    nm = nmap.PortScanner()
+    try:
+        nm.scan(hosts=ip, arguments='--script=ssl-enum-ciphers -Pn')
+        if len(nm.all_hosts()) == 0:
+            print(f"No SSL/TLS encryption found on host {ip}. This could be due to:")
+            print("1. The host is down or unreachable.")
+            print("2. The host is not responding to SSL/TLS requests.")
+            print("3. The IP address is incorrect.")
+        else:
+            for host in nm.all_hosts():
+                print(f"Host: {host} has the following SSL/TLS encryption:")
+                for proto in nm[host].all_protocols():
+                    lport = nm[host][proto].keys()
+                    sorted(lport)
+                    for port in lport:
+                        if 'script' in nm[host][proto][port]:
+                            if nm[host][proto][port]['script']:
+                                print(f"Port: {port} has SSL/TLS encryption: {nm[host][proto][port]['script']}")
+                                print(f"SSL/TLS output: {nm[host][proto][port]['script']}\n")
+    except nmap.PortScannerError as e:
+        print(f"Error: {e}")
 def recon_scan(ip):
     """
         Performs a reconnaissance scan using nmap.
@@ -174,12 +175,13 @@ def scan_list(file_path):
 
 def main():
     print("Multi-Use Nmap Scanner")
+    print("Scans 2-7 will take some time, so just have a cup of coffee and kick your feet up. If you see no error then it's still running")
     print("1. Network Scan - This scan checks if hosts are up or down.")
     print("2. Port Scan - This scan checks if ports are open on the specified host.")
-    print("3. Full Scan - This scan checks all ports on the specified host.")
-    print("4. UDP Scan - This scan checks if UDP ports are open on the specified host.")
-    print("5. Vulns Scan - This scan checks for known vulnerabilities on the specified host.")
-    print("6. Recon Scan - This scan runs common reconnaissance commands.")
+    print("3. UDP Scan - This scan checks if UDP ports are open on the specified host.")
+    print("4. Vulns Scan - This scan checks for known vulnerabilities on the specified host.")
+    print("5. Recon Scan - This scan runs common reconnaissance commands.")
+    print("6. SSL/TLS Scan - This scan identifies the SSL/TLS ciphers supported by the target.")
     print("7. All Scan - This one will take some time, Everything everywhere all at once")
     print("8. Scan List - This will scan an IP from a list - text file")
     print("9. Exit")
@@ -194,20 +196,20 @@ def main():
         port_scan(ip)
     elif choice == '3':
         ip = input("Enter the IP address: ")
-        full_scan(ip)
-    elif choice == '4':
-        ip = input("Enter the IP address: ")
         udp_scan(ip)
-    elif choice == '5':
+    elif choice == '4':
         ip = input("Enter the IP address: ")
         vulnerabilities_found = vulns_scan(ip)
         if vulnerabilities_found:
             print(f"Vulnerabilities found on host {ip}")
         else:
             print(f"No vulnerabilities found on host {ip}")
-    elif choice == '6':
+    elif choice == '5':
         ip = input("Enter the IP address: ")
         recon_scan(ip)
+    elif choice == '6':
+        ip = input("Enter the IP address: ")
+        ssl_tls_scan(ip)
     elif choice == '7':
         ip = input("Enter the IP address: ")
         all_scan(ip)
