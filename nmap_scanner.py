@@ -130,6 +130,31 @@ def ssl_tls_scan(ip):
                                 print(f"SSL/TLS output: {nm[host][proto][port]['script']}\n")
     except nmap.PortScannerError as e:
         print(f"Error: {e}")
+
+def os_detection(ip):
+            """
+                Performs OS detection using nmap.
+                This scan attempts to determine the operating system of the specified host.
+            """
+            nm = nmap.PortScanner()
+            try:
+                nm.scan(hosts=ip, arguments='-O -Pn')
+                if len(nm.all_hosts()) == 0:
+                    print(f"No operating system found on host {ip}. This could be due to:")
+                    print("1. The host is down or unreachable.")
+                    print("2. The host is not responding to OS detection requests.")
+                    print("3. The IP address is incorrect.")
+                else:
+                    for host in nm.all_hosts():
+                        print(f"Host: {host} has the following operating system:")
+                        if 'osmatch' in nm[host]:
+                            for osmatch in nm[host]['osmatch']:
+                                print(f"OS Name: {osmatch['name']}")
+                                print(f"OS Accuracy: {osmatch['accuracy']}%")
+                        else:
+                            print("No OS matches found")
+            except nmap.PortScannerError as e:
+                print(f"Error: {e}")
 def recon_scan(ip):
     """
         Performs a reconnaissance scan using nmap.
@@ -156,6 +181,8 @@ def all_scan(ip):
     udp_scan(ip)
     vulns_scan(ip)
     recon_scan(ip)
+    ssl_tls_scan(ip)
+    os_detection(ip)
 
 def scan_list(file_path):
     """
@@ -172,6 +199,9 @@ def scan_list(file_path):
         udp_scan(ip)
         vulns_scan(ip)
         recon_scan(ip)
+        ssl_tls_scan(ip)
+        os_detection(ip)
+
 
 def main():
     print("Multi-Use Nmap Scanner")
@@ -182,9 +212,10 @@ def main():
     print("4. Vulns Scan - This scan checks for known vulnerabilities on the specified host.")
     print("5. Recon Scan - This scan runs common reconnaissance commands.")
     print("6. SSL/TLS Scan - This scan identifies the SSL/TLS ciphers supported by the target.")
-    print("7. All Scan - This one will take some time, Everything everywhere all at once")
-    print("8. Scan List - This will scan an IP from a list - text file")
-    print("9. Exit")
+    print("7. OS Discovery - This scan attempts to determine the operating system of the specified host")
+    print("8. All Scan - This one will take some time, Everything everywhere all at once")
+    print("9. Scan List - This will scan an IP from a list - text file")
+    print("10. Exit")
 
     choice = input("Choose a scan type: ")
 
@@ -212,11 +243,14 @@ def main():
         ssl_tls_scan(ip)
     elif choice == '7':
         ip = input("Enter the IP address: ")
-        all_scan(ip)
+        os_detection(ip)
     elif choice == '8':
+        ip = input("Enter the IP address: ")
+        all_scan(ip)
+    elif choice == '9':
         file_path = input("Enter the path to the IP list file: ")
         scan_list(file_path)
-    elif choice == '9':
+    elif choice == '10':
         print("Exiting script...")
         exit()
     else:
