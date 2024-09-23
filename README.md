@@ -4,12 +4,12 @@ Warning: this script may cause excessive awesomeness, spontaneous high-fiving, a
 
 ## Table of Contents
 
-- Requirements (a.k.a. The Usual Suspects)
+- Requirements
 - Usage (a.k.a. The Mission Briefing)
 - Features
 - Note (a.k.a. The Fine Print)
 
-## Requirements (a.k.a. The Usual Suspects)
+## Requirements
 
 - Python 3.x
 - nmap library (pip install python-nmap)
