@@ -37,6 +37,10 @@ Warning: this script may cause excessive awesomeness, spontaneous high-fiving, a
   Provides a list of useful reconnaissance commands. For the aspiring network ninja.
 - All Scan
   Performs all the above scans. Because why choose just one?
+- SSL/TLS Scan
+  This scan identifies the SSL/TLS ciphers supported by the target.
+- OS Discovery
+  This scan attempts to determine the operating system of the specified host
 - Scan List
   Scans a list of IP addresses.
 
