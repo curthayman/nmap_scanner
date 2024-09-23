@@ -178,8 +178,11 @@ def main():
     print("5. Vulns Scan - This scan checks for known vulnerabilities on the specified host.")
     print("6. Recon Scan - This scan runs common reconnaissance commands.")
     print("7. All Scan - This one will take some time, Everything everywhere all at once")
-    print("8. Scan List")
+    print("8. Scan List - This will scan an IP from a list - text file")
+    print("9. Exit")
+
     choice = input("Choose a scan type: ")
+
     if choice == '1':
         ip = input("Enter the IP address: ")
         network_scan(ip)
@@ -208,6 +211,9 @@ def main():
     elif choice == '8':
         ip_list = input("Enter the list of IP addresses separated by commas: ").split(',')
         scan_list(ip_list)
+    elif choice == '9':
+        print("Exiting script...")
+        exit()
     else:
         print("Invalid choice")
 
