@@ -11,15 +11,15 @@ Warning: this script may cause excessive awesomeness, spontaneous high-fiving, a
 
 ## Requirements (a.k.a. The Usual Suspects)
 
-- Python 3.x (don't even think about using 2.x, grandpa)
-- nmap library (pip install python-nmap, duh)
+- Python 3.x
+- nmap library (pip install python-nmap)
 
 ## Usage (a.k.a. The Mission Briefing)
 
-1. Clone the repository or download the script. Don't worry, it won't self-destruct in 5 seconds.
-2. Install the required libraries using `pip install -r requirements.txt`. We promise it won't take longer than a coffee break.
-3. Run the script using `python nmap_scanner.py`. The fate of the world may depend on it.
-4. Follow the prompts to choose the scan type and enter the IP address or list of IP addresses. Don't worry, we won't judge you if you scan your own network. Much.
+1. Clone the repository or download the script.
+2. Install the required libraries using `pip install -r requirements.txt`. I promise it won't take longer than a coffee break.
+3. Run the script using `python nmap_scanner.py`.
+4. Follow the prompts to choose the scan type and enter the IP address or list of IP addresses. Don't worry, we won't judge you if you scan your own network.
 
 ## Features
 
@@ -38,12 +38,12 @@ Warning: this script may cause excessive awesomeness, spontaneous high-fiving, a
 - All Scan
   Performs all the above scans. Because why choose just one?
 - Scan List
-  Scans a list of IP addresses. For the truly adventurous.
+  Scans a list of IP addresses.
 
 ## Note (a.k.a. The Fine Print)
 
-- The UDP scan requires root privileges and will prompt for confirmation before proceeding. Don't worry, we won't make you sign a waiver.
-- The script uses the nmap library to perform scans. Ensure that the library is installed and the script has the necessary permissions to run nmap scans. Or else.
+- The UDP scan requires root privileges and will prompt for confirmation before proceeding.
+- The script uses the nmap library to perform scans. Ensure that the library is installed and the script has the necessary permissions to run nmap scans.
 
 ## Also Note
   
