@@ -156,10 +156,13 @@ def all_scan(ip):
     vulns_scan(ip)
     recon_scan(ip)
 
-def scan_list(ip_list):
+def scan_list(file_path):
     """
-        Performs scans on a list of IP addresses.
+        Performs scans on a list of IP addresses from a file.
     """
+    with open(file_path, 'r') as file:
+        ip_list = [line.strip() for line in file]
+
     for ip in ip_list:
         print(f"Scanning {ip}...")
         network_scan(ip)
@@ -209,8 +212,8 @@ def main():
         ip = input("Enter the IP address: ")
         all_scan(ip)
     elif choice == '8':
-        ip_list = input("Enter the list of IP addresses separated by commas: ").split(',')
-        scan_list(ip_list)
+        file_path = input("Enter the path to the IP list file: ")
+        scan_list(file_path)
     elif choice == '9':
         print("Exiting script...")
         exit()
